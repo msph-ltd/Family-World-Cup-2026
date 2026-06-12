@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Family World Cup 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-font-smoothing:antialiased}
+
+html{min-height:100%;background:#0f1a10}
+body{
+  font-family:'Inter',sans-serif;
+  min-height:100vh;
+  color:rgba(255,255,255,0.95);
+  padding-bottom:60px;
+  background:
+    radial-gradient(ellipse 100% 50% at 20% 0%, rgba(180,130,40,0.15) 0%, transparent 55%),
+    radial-gradient(ellipse 80% 40% at 80% 100%, rgba(40,100,60,0.12) 0%, transparent 55%),
+    linear-gradient(160deg, #0f1a10 0%, #0a1520 50%, #13100c 100%);
+  background-attachment:fixed;
+}
+
+:root{
+  --glass:rgba(15,20,15,0.45);
+  --glass-border:rgba(255,255,255,0.13);
+  --glass-hover:rgba(15,20,15,0.55);
+  --blur:blur(20px);
+  --gold:#e8c97a;
+  --gold-glow:rgba(232,201,122,0.12);
+  --white:rgba(255,255,255,0.95);
+  --white70:rgba(255,255,255,0.7);
+  --white40:rgba(255,255,255,0.42);
+  --white20:rgba(255,255,255,0.2);
+  --white10:rgba(255,255,255,0.08);
+  --green:#7ecb9a;
+  --red:#e07a7a;
+  --r:16px;
+  --r-sm:11px;
+  --f:'Inter',sans-serif;
+}
+
+
+
+
+/* ── HEADER ── */
+.header{padding:44px 22px 26px;position:relative}
+.header-eyebrow{font-size:10px;font-weight:700;letter-spacing:3.5px;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+.header-title{font-size:clamp(36px,9vw,54px);font-weight:900;letter-spacing:-2px;line-height:1.0;color:var(--white);text-shadow:0 2px 20px rgba(0,0,0,0.5)}
+.header-title em{font-style:normal;color:var(--gold)}
+.header-sub{font-size:12px;color:var(--white40);margin-top:10px;letter-spacing:0.2px}
+
+/* ── TABS ── */
+.tab-bar{display:flex;gap:6px;padding:0 18px 20px;overflow-x:auto;scrollbar-width:none}
+.tab-bar::-webkit-scrollbar{display:none}
+.tab{
+  flex:1;min-width:70px;padding:10px 8px;
+  border-radius:40px;font-size:12px;font-weight:700;letter-spacing:0.4px;
+  text-align:center;cursor:pointer;white-space:nowrap;
+  background:var(--glass);border:1px solid var(--glass-border);
+  color:var(--white40);backdrop-filter:var(--blur);
+  transition:all 0.2s;
+}
+.tab.active{background:var(--gold);border-color:var(--gold);color:rgba(20,14,2,0.95)}
+
+/* ── PANELS ── */
+.panel{display:none;padding:0 18px}
+.panel.active{display:block}
+
+/* ── GLASS CARD base ── */
+.gc{
+  background:var(--glass);
+  border:1px solid var(--glass-border);
+  border-radius:var(--r);
+  backdrop-filter:var(--blur);
+  -webkit-backdrop-filter:var(--blur);
+}
+
+/* ── LEADERBOARD ── */
+.lb-list{display:flex;flex-direction:column;gap:8px}
+.lb-row{padding:15px 16px;display:flex;align-items:center;gap:12px;cursor:pointer;transition:background 0.15s}
+.lb-row:hover{background:var(--glass-hover)}
+.lb-row.top{border-color:rgba(232,201,122,0.38)}
+
+.lb-rank{font-size:12px;font-weight:800;color:var(--white40);width:18px;text-align:center;flex-shrink:0}
+.lb-rank.hi{color:var(--gold)}
+
+.lb-avi{
+  width:40px;height:40px;border-radius:50%;flex-shrink:0;
+  background:var(--white10);border:1px solid var(--glass-border);
+  display:flex;align-items:center;justify-content:center;
+  font-size:13px;font-weight:800;color:var(--white70);
+  overflow:hidden;
+}
+.lb-avi img{width:100%;height:100%;object-fit:cover}
+.top .lb-avi{background:var(--gold-glow);border-color:rgba(232,201,122,0.3);color:var(--gold)}
+
+.lb-info{flex:1;min-width:0}
+.lb-name{font-size:15px;font-weight:700;letter-spacing:-0.3px}
+.lb-preview{font-size:11px;color:var(--white40);margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+.lb-right{text-align:right;flex-shrink:0}
+.lb-pts{font-size:28px;font-weight:900;letter-spacing:-1.5px}
+.top .lb-pts{color:var(--gold)}
+.lb-lbl{font-size:10px;font-weight:700;color:var(--white40);letter-spacing:1px;text-transform:uppercase}
+
+/* ── SELECTS ── */
+.sel-wrap{margin-bottom:14px;position:relative}
+.sel{
+  width:100%;padding:12px 40px 12px 16px;
+  border-radius:40px;font-size:13px;font-weight:600;
+  background:var(--glass);border:1px solid var(--glass-border);
+  color:var(--white);appearance:none;cursor:pointer;
+  backdrop-filter:var(--blur);font-family:var(--f);
+}
+.sel:focus{outline:none;border-color:rgba(232,201,122,0.6)}
+.sel option{background:#0d1a10;color:#fff}
+.sel-arrow{position:absolute;right:14px;top:50%;transform:translateY(-50%);color:var(--white40);pointer-events:none;font-size:13px}
+
+/* ── TEAMS ── */
+.owner-head{display:flex;justify-content:space-between;align-items:center;padding:20px 2px 8px}
+.owner-head:first-child{padding-top:0}
+.owner-head-name{font-size:12px;font-weight:700;color:var(--white70);letter-spacing:0.3px}
+.owner-head-pts{font-size:13px;font-weight:900;color:var(--gold)}
+
+.team-card{padding:13px 15px;display:flex;align-items:center;gap:12px;margin-bottom:8px}
+.tc-info{flex:1}
+.tc-name{font-size:14px;font-weight:700;letter-spacing:-0.2px}
+.tc-sub{font-size:11px;color:var(--white40);margin-top:4px}
+.pills{display:flex;gap:4px;margin-top:5px}
+.pill{font-size:11px;font-weight:700;padding:2px 9px;border-radius:20px}
+.pw{background:rgba(126,203,154,0.15);color:var(--green)}
+.pd{background:rgba(232,201,122,0.12);color:var(--gold)}
+.pl{background:rgba(224,122,122,0.12);color:var(--red)}
+.tc-pts{font-size:26px;font-weight:900;letter-spacing:-1px}
+
+/* ── FIXTURES ── */
+.fix-filters{display:flex;gap:6px;margin-bottom:14px;overflow-x:auto;scrollbar-width:none}
+.fix-filters::-webkit-scrollbar{display:none}
+
+.fix-card{padding:14px 16px;margin-bottom:8px}
+.fix-card.sweep{border-color:rgba(232,201,122,0.3)}
+.fix-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:11px}
+.fix-date{font-size:11px;color:var(--white40);font-weight:500}
+.badge{font-size:10px;font-weight:700;letter-spacing:0.8px;text-transform:uppercase;padding:3px 10px;border-radius:20px}
+.b-fin{background:rgba(126,203,154,0.15);color:var(--green)}
+.b-live{background:rgba(224,122,122,0.15);color:var(--red);animation:pulse 1.8s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.5}}
+.b-up{background:var(--white10);color:var(--white40)}
+.fix-match{display:flex;align-items:center;gap:8px}
+.fx-team{flex:1;font-size:14px;font-weight:700;line-height:1.25}
+.fx-team.r{text-align:right}
+.fx-team.hl{color:var(--gold)}
+.fx-score{font-size:26px;font-weight:900;letter-spacing:-1px;min-width:64px;text-align:center}
+.fx-score.vs{font-size:14px;color:var(--white40);font-weight:500;letter-spacing:2px}
+.fix-note{font-size:11px;color:var(--white40);text-align:center;margin-top:8px}
+
+/* ── MODAL ── */
+.modal-bg{
+  display:none;position:fixed;inset:0;z-index:300;
+  background:rgba(0,0,0,0.6);backdrop-filter:blur(14px);
+  align-items:flex-end;justify-content:center;
+}
+.modal-bg.open{display:flex}
+.modal-sheet{
+  width:100%;max-width:520px;max-height:84vh;overflow-y:auto;
+  background:rgba(8,18,10,0.92);
+  border:1px solid rgba(255,255,255,0.12);border-bottom:none;
+  border-radius:22px 22px 0 0;padding:22px 20px 48px;
+  animation:up 0.3s cubic-bezier(0.32,0.72,0,1);
+  position:relative;overflow:hidden;
+}
+/* mini photo strip behind modal */
+.modal-sheet::before{
+  content:'';position:absolute;inset:0;z-index:0;
+  background-image:url('https://images.unsplash.com/photo-1508098682722-e99c643e7f0b?w=600&q=60&fit=crop');
+  background-size:cover;background-position:center 20%;
+  opacity:0.12;
+}
+.modal-sheet>*{position:relative;z-index:1}
+@keyframes up{from{transform:translateY(100%)}to{transform:translateY(0)}}
+
+.m-handle{width:36px;height:4px;background:var(--white20);border-radius:4px;margin:0 auto 22px}
+.m-head{display:flex;align-items:center;gap:14px;margin-bottom:18px}
+.m-avi{width:48px;height:48px;border-radius:50%;background:var(--gold-glow);border:1px solid rgba(232,201,122,0.3);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:800;color:var(--gold);flex-shrink:0}
+.m-name{font-size:20px;font-weight:900;letter-spacing:-0.7px}
+.m-meta{font-size:12px;color:var(--white40);margin-top:2px}
+.m-close{margin-left:auto;width:32px;height:32px;border-radius:50%;background:var(--white10);border:1px solid var(--glass-border);color:var(--white70);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0}
+.m-total{
+  background:linear-gradient(135deg,var(--gold-glow) 0%,rgba(126,203,154,0.06) 100%);
+  border:1px solid rgba(232,201,122,0.22);border-radius:var(--r);
+  padding:16px 18px;display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;
+}
+.m-total-lbl{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--white40)}
+.m-total-pts{font-size:44px;font-weight:900;letter-spacing:-2px;color:var(--gold)}
+.m-team-row{padding:13px 0;border-bottom:1px solid var(--white10);display:flex;align-items:center;gap:10px}
+.m-team-row:last-child{border-bottom:none}
+.m-ti{flex:1}
+.m-tn{font-size:14px;font-weight:700}
+.m-td{font-size:11px;color:var(--white40);margin-top:3px}
+.m-stage{font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;background:var(--white10);color:var(--white40);white-space:nowrap}
+.m-stage.prog{background:rgba(126,203,154,0.12);color:var(--green)}
+.m-tpts{font-size:24px;font-weight:900;letter-spacing:-0.8px;min-width:36px;text-align:right}
+
+/* ── LOADING / EMPTY ── */
+.loading{text-align:center;padding:52px 0;color:var(--white40)}
+.spin{width:30px;height:30px;border:2px solid var(--white10);border-top-color:var(--gold);border-radius:50%;animation:spin .75s linear infinite;margin:0 auto 14px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.empty{background:var(--glass);border:1px solid var(--glass-border);border-radius:var(--r);padding:28px;text-align:center;color:var(--white40);font-size:13px;backdrop-filter:var(--blur)}
+</style>
+</head>
+<body>
+
+
+<div class="header">
+  <div class="header-eyebrow">FIFA World Cup 2026</div>
+  <h1 class="header-title">Family<br><em>Sweepstake</em></h1>
+  <p class="header-sub" id="lastUpdated">Loading…</p>
+</div>
+
+<nav class="tab-bar">
+  <div class="tab active" onclick="switchTab('leaderboard',this)">Standings</div>
+  <div class="tab" onclick="switchTab('teams',this)">My Teams</div>
+  <div class="tab" onclick="switchTab('fixtures',this)">Fixtures</div>
+</nav>
+
+<!-- LEADERBOARD -->
+<div class="panel active" id="panel-leaderboard">
+  <div class="loading" id="lb-load"><div class="spin"></div><div>Loading…</div></div>
+  <div class="lb-list" id="lb-list"></div>
+</div>
+
+<!-- TEAMS -->
+<div class="panel" id="panel-teams">
+  <div class="sel-wrap">
+    <select class="sel" id="teams-sel" onchange="renderTeams()">
+      <option value="all">All participants</option>
+    </select>
+    <span class="sel-arrow">▾</span>
+  </div>
+  <div class="loading" id="teams-load"><div class="spin"></div><div>Loading…</div></div>
+  <div id="teams-list"></div>
+</div>
+
+<!-- FIXTURES -->
+<div class="panel" id="panel-fixtures">
+  <div class="sel-wrap">
+    <select class="sel" id="fix-sel" onchange="renderFix()">
+      <option value="all">All fixtures</option>
+    </select>
+    <span class="sel-arrow">▾</span>
+  </div>
+  <div class="fix-filters">
+    <button class="tab active" style="flex:none;padding:8px 16px;font-size:11px" onclick="setFF('all',this)">All</button>
+    <button class="tab" style="flex:none;padding:8px 16px;font-size:11px" onclick="setFF('finished',this)">Finished</button>
+    <button class="tab" style="flex:none;padding:8px 16px;font-size:11px" onclick="setFF('live',this)">Live</button>
+    <button class="tab" style="flex:none;padding:8px 16px;font-size:11px" onclick="setFF('upcoming',this)">Upcoming</button>
+  </div>
+  <div class="loading" id="fix-load"><div class="spin"></div><div>Loading…</div></div>
+  <div id="fix-list"></div>
+</div>
+
+<!-- MODAL -->
+<div class="modal-bg" id="modal" onclick="maybeClose(event)">
+  <div class="modal-sheet" id="modal-inner"></div>
+</div>
+
+<script>
+const API='https://script.google.com/macros/s/AKfycbwJGbtB2m897FcxGfQQ8lVy3NcEC_2aGokcwb6E7kzvtDUqsbRKnsDABVJ72i_BHrBejA/exec';
+
+// Unsplash photos — free, no key needed for source URLs
+// Dark mode: stadium night / Light mode: pitch daylight
+let D=null,fixFilter='all',sweepTeams=new Set();
+
+function ini(n){return n.split(' ').map(p=>p[0]).join('').substring(0,2).toUpperCase()}
+function fmtDate(raw){
+  if(!raw)return '';
+  const d=new Date(raw);
+  if(isNaN(d))return String(raw);
+  return d.toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short'})+
+    ' · '+d.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});
+}
+
+async function boot(){
+  try{
+    const res=await fetch(API);
+    if(!res.ok)throw new Error('HTTP '+res.status);
+    D=await res.json();
+    if(D.error)throw new Error(D.error);
+    D.teams.forEach(t=>sweepTeams.add(t.team));
+    const d=new Date(D.lastUpdated);
+    document.getElementById('lastUpdated').textContent=
+      'Updated '+d.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'})+
+      ' · '+d.toLocaleDateString('en-GB',{day:'numeric',month:'short'});
+    const owners=D.leaderboard.map(o=>o.owner);
+    ['teams-sel','fix-sel'].forEach(id=>{
+      const s=document.getElementById(id);
+      const lbl=id==='fix-sel'?'All fixtures':'All participants';
+      s.innerHTML=`<option value="all">${lbl}</option>`+owners.map(o=>`<option value="${o}">${o}</option>`).join('');
+    });
+    renderLB();renderTeams();renderFix();
+  }catch(e){
+    ['lb-load','teams-load','fix-load'].forEach(id=>{
+      document.getElementById(id).innerHTML=`<div class="empty">Could not load data.<br><small>${e.message}</small></div>`;
+    });
+  }
+}
+
+function switchTab(tab,el){
+  document.querySelectorAll('.tab-bar .tab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.getElementById('panel-'+tab).classList.add('active');
+  
+}
+
+/* LEADERBOARD */
+function renderLB(){
+  document.getElementById('lb-load').style.display='none';
+  const list=document.getElementById('lb-list');
+  if(!D.leaderboard.length){list.innerHTML='<div class="empty">No data yet.</div>';return}
+  list.innerHTML=D.leaderboard.map(e=>{
+    const top=e.rank===1;
+    const preview=D.teams.filter(t=>t.owner===e.owner).map(t=>t.team).join(' · ');
+    return `<div class="gc lb-row ${top?'top':''}" onclick="openModal('${e.owner.replace(/'/g,"\\'")}')">
+      <div class="lb-rank ${e.rank<=3?'hi':''}">${e.rank}</div>
+      <div class="lb-avi">${ini(e.owner)}</div>
+      <div class="lb-info">
+        <div class="lb-name">${e.owner}</div>
+        <div class="lb-preview">${preview}</div>
+      </div>
+      <div class="lb-right">
+        <div class="lb-pts">${e.points}</div>
+        <div class="lb-lbl">pts</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+/* MODAL */
+function openModal(owner){
+  const lb=D.leaderboard.find(o=>o.owner===owner);
+  const teams=D.teams.filter(t=>t.owner===owner).sort((a,b)=>b.totalPoints-a.totalPoints);
+  document.getElementById('modal-inner').innerHTML=`
+    <div class="m-handle"></div>
+    <div class="m-head">
+      <div class="m-avi">${ini(owner)}</div>
+      <div><div class="m-name">${owner}</div><div class="m-meta">Rank #${lb?lb.rank:'?'} · ${teams.length} teams</div></div>
+      <button class="m-close" onclick="document.getElementById('modal').classList.remove('open')">✕</button>
+    </div>
+    <div class="m-total">
+      <div class="m-total-lbl">Total points</div>
+      <div class="m-total-pts">${lb?lb.points:0}</div>
+    </div>
+    ${teams.map(t=>`<div class="m-team-row">
+      <div class="m-ti">
+        <div class="m-tn">${t.team}</div>
+        <div class="m-td">${t.played}P · ${t.wins}W ${t.draws}D ${t.losses}L · ${t.bonusPoints>0?t.groupPoints+' + '+t.bonusPoints+' bonus':t.groupPoints+' pts'}</div>
+      </div>
+      <span class="m-stage ${t.stage!=='Group Stage'?'prog':''}">${t.stage}</span>
+      <div class="m-tpts">${t.totalPoints}</div>
+    </div>`).join('')}`;
+  document.getElementById('modal').classList.add('open');
+}
+function maybeClose(e){if(e.target===document.getElementById('modal'))document.getElementById('modal').classList.remove('open')}
+
+/* TEAMS */
+function renderTeams(){
+  document.getElementById('teams-load').style.display='none';
+  const sel=document.getElementById('teams-sel').value;
+  const owners=sel==='all'?D.leaderboard.map(o=>o.owner):[sel];
+  let html='';
+  owners.forEach(owner=>{
+    const lb=D.leaderboard.find(o=>o.owner===owner);
+    const teams=D.teams.filter(t=>t.owner===owner).sort((a,b)=>b.totalPoints-a.totalPoints);
+    if(sel==='all')html+=`<div class="owner-head"><div class="owner-head-name">#${lb?lb.rank:''} ${owner}</div><div class="owner-head-pts">${lb?lb.points:0} pts</div></div>`;
+    html+=teams.map(t=>`<div class="gc team-card">
+      <div class="tc-info">
+        <div class="tc-name">${t.team}</div>
+        <div class="pills"><span class="pill pw">${t.wins}W</span><span class="pill pd">${t.draws}D</span><span class="pill pl">${t.losses}L</span></div>
+        <div class="tc-sub">${t.stage}${t.bonusPoints>0?' · +'+t.bonusPoints+' bonus':''}</div>
+      </div>
+      <div class="tc-pts">${t.totalPoints}</div>
+    </div>`).join('');
+  });
+  document.getElementById('teams-list').innerHTML=html||'<div class="empty">No teams found.</div>';
+}
+
+/* FIXTURES */
+function setFF(f,btn){
+  fixFilter=f;
+  document.querySelectorAll('.fix-filters .tab').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderFix();
+}
+function renderFix(){
+  document.getElementById('fix-load').style.display='none';
+  const owner=document.getElementById('fix-sel').value;
+  const ownerTeams=owner==='all'?null:new Set(D.teams.filter(t=>t.owner===owner).map(t=>t.team));
+  let fx=[...D.fixtures].filter(f=>f.teamA!=='Team 0'&&f.teamB!=='Team 0');
+  const so={'Live':0,'Finished':1,'Not Started':2};
+  fx.sort((a,b)=>so[a.status]!==so[b.status]?so[a.status]-so[b.status]:new Date(a.date)-new Date(b.date));
+  if(fixFilter==='finished')fx=fx.filter(f=>f.status==='Finished');
+  else if(fixFilter==='live')fx=fx.filter(f=>f.status==='Live');
+  else if(fixFilter==='upcoming')fx=fx.filter(f=>f.status==='Not Started');
+  if(ownerTeams)fx=fx.filter(f=>ownerTeams.has(f.teamA)||ownerTeams.has(f.teamB));
+  const list=document.getElementById('fix-list');
+  if(!fx.length){list.innerHTML='<div class="empty">No fixtures to show.</div>';return}
+  list.innerHTML=fx.map(f=>{
+    const hiA=sweepTeams.has(f.teamA),hiB=sweepTeams.has(f.teamB);
+    const owA=D.teams.find(t=>t.team===f.teamA)?.owner||'';
+    const owB=D.teams.find(t=>t.team===f.teamB)?.owner||'';
+    const owNote=[owA&&`${f.teamA}: ${owA}`,owB&&`${f.teamB}: ${owB}`].filter(Boolean).join(' · ');
+    const bc=f.status==='Finished'?'b-fin':f.status==='Live'?'b-live':'b-up';
+    const bl=f.status==='Not Started'?'Upcoming':f.status;
+    const sc=f.status==='Not Started'?`<div class="fx-score vs">vs</div>`:`<div class="fx-score">${f.scoreA??'–'}&nbsp;–&nbsp;${f.scoreB??'–'}</div>`;
+    return `<div class="gc fix-card ${(hiA||hiB)?'sweep':''}">
+      <div class="fix-top"><span class="fix-date">${fmtDate(f.date)}</span><span class="badge ${bc}">${bl}</span></div>
+      <div class="fix-match">
+        <div class="fx-team ${hiA?'hl':''}">${f.teamA}</div>${sc}<div class="fx-team r ${hiB?'hl':''}">${f.teamB}</div>
+      </div>
+      ${owNote?`<div class="fix-note">${owNote}</div>`:''}
+    </div>`;
+  }).join('');
+}
+
+boot();
+</script>
+</body>
+</html>
